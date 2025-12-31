@@ -1,0 +1,9 @@
+cpu: CPU.RiscV32 @ sysbus
+    cpuType: "rv32i"
+
+ram: Memory.MappedMemory @ sysbus 0x80000000
+    size: 0x20000
+
+can: Antmicro.Renode.Peripherals.CAN.UT32_CAN @ sysbus 0x40000000
+
+uart: Antmicro.Renode.Peripherals.UART.NS16550 @ sysbus 0xe0000000

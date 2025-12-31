@@ -1,0 +1,22 @@
+using sysbus
+
+echo "Creating machine"
+mach create
+machine LoadPlatformDescription @platform.repl
+machine CreateSocketCANBridge "socketcan" "vcan0" ensureFdFrames=false
+
+echo "Connecting CAN and hub"
+emulation CreateCANHub "hub"
+connector Connect can hub
+connector Connect socketcan hub
+
+echo "Loading firmware.elf"
+sysbus LoadELF @/app/firmware.elf
+
+echo "Configuring logging"
+logLevel 3
+# logLevel -1 can
+# logLevel -1 uart
+# logLevel -1 socketcan
+
+start
